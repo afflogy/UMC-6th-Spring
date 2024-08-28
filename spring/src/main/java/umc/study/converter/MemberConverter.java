@@ -33,7 +33,7 @@ public class MemberConverter {
                 break;
         }
         return Member.builder()
-                .address(request.getMemAddress())
+                .address(request.getAddress())
                 .gender(gender)
                 .name(request.getName())
                 .phone_num(request.getPhon_number())

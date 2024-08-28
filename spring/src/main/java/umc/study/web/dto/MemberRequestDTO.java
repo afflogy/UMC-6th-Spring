@@ -2,6 +2,7 @@ package umc.study.web.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import umc.study.validation.annotation.ExistCategories;
 
@@ -25,8 +26,9 @@ public class MemberRequestDTO {
         Integer gender;
 
         @NotBlank
+        @Size(min = 5, max = 12)
         @Schema(description = "사용자 주소")
-        String memAddress;
+        String address;
 
         @ExistCategories
         @Schema(description = "사용자 선호 음식")
