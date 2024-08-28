@@ -8,7 +8,6 @@ import org.hibernate.annotations.DynamicUpdate;
 import umc.study.domain.common.BaseEntity;
 import umc.study.domain.enums.Gender;
 import umc.study.domain.enums.MemberStatus;
-import umc.study.domain.enums.SocialType;
 import umc.study.domain.mapping.MemberAgree;
 import umc.study.domain.mapping.MemberPoint;
 import umc.study.domain.mapping.MemberPrefer;
@@ -28,6 +27,7 @@ public class Member extends BaseEntity {
 
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @Column(name = "member_id")
    private Long id;
 
    @Column(nullable = false, length = 20)
@@ -39,16 +39,18 @@ public class Member extends BaseEntity {
    @Column(nullable = false, length = 40)
    private String address;
 
-   @Enumerated(EnumType.STRING)
-   @Column(columnDefinition = "VARCHAR(10)")
-   private Gender gender;
-
-   @Enumerated(EnumType.STRING)
-   private SocialType socialType;
+   private LocalDate inactDate;
 
    @Enumerated(EnumType.STRING)
    @Column(columnDefinition = "VARCHAR(15) DEFAULT 'ACTIVE'")
    private MemberStatus status;
+
+   // @Column(nullable = false, length=50)
+   private String email;
+
+   @Enumerated(EnumType.STRING)
+   @Column(columnDefinition = "VARCHAR(10)")
+   private Gender gender;
 
    private LocalDate inactiveDate;
 
@@ -66,5 +68,4 @@ public class Member extends BaseEntity {
 
    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
    private List<MemberPoint> memberPointList = new ArrayList<>();
-
 }

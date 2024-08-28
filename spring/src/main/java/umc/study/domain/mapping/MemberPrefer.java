@@ -17,7 +17,6 @@ public class MemberPrefer extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //개인적으로 넣은 것
     @Column(nullable = true, length = 15)
     private String prefer_type;
 
@@ -36,8 +35,7 @@ public class MemberPrefer extends BaseEntity {
         member.getMemberPreferList().add(this);
     }
 
-    public void setFoodCategory(FoodCategory foodCategory){
+    public void setFoodCategory(FoodCategory foodCategory) {
         this.foodCategory = foodCategory;
     }
-
 }

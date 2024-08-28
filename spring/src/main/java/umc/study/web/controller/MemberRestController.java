@@ -23,8 +23,9 @@ public class MemberRestController {
     private final MemberCommandService memberCommandService;
 
     @PostMapping("/")
-    public ApiResponse<MemberResponseDTO.JoinResultDTO> join(@RequestBody @Valid MemberRequestDTO.JoinDTO request){
-        Member member = memberCommandService.joinMember(request); //joinMember는 MemberCommandService에 생성함
+    public ApiResponse<MemberResponseDTO.JoinResultDTO> joinMembers(
+            @RequestBody @Valid MemberRequestDTO.JoinDTO request) {
+        Member member = memberCommandService.joinMember(request);
         return ApiResponse.onSuccess(MemberConverter.toJoinResultDTO(member));
     }
 }

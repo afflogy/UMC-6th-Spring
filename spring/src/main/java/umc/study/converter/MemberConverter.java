@@ -10,14 +10,15 @@ import java.util.ArrayList;
 
 public class MemberConverter {
 
+    // 1) 사용자 회원가입 API
     public static MemberResponseDTO.JoinResultDTO toJoinResultDTO(Member member){
         return MemberResponseDTO.JoinResultDTO.builder()
                 .memberId(member.getId())
                 .createdAt(LocalDateTime.now())
                 .build();
-        // dto에 있는 파일의 속성을 가져옴
     }
 
+    // 1) 사용자 회원가입 API
     public static Member toMember(MemberRequestDTO.JoinDTO request){
         Gender gender = null;
         switch (request.getGender()){
@@ -32,7 +33,7 @@ public class MemberConverter {
                 break;
         }
         return Member.builder()
-                .address(request.getAddress())
+                .address(request.getMemAddress())
                 .gender(gender)
                 .name(request.getName())
                 .phone_num(request.getPhon_number())

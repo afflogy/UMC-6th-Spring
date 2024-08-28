@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 public class MemberCommandServiceImpl implements MemberCommandService{
 
     private final MemberRepository memberRepository;
-
     private final FoodCategoryRepository foodCategoryRepository;
 
     @Override
@@ -32,13 +31,14 @@ public class MemberCommandServiceImpl implements MemberCommandService{
 
         Member newMember = MemberConverter.toMember(request);
         List<FoodCategory> foodCategoryList = request.getPreferCategory().stream()
-                .map(category -> foodCategoryRepository.findById(category).orElseThrow(() -> new FoodCategoryHandler(ErrorStatus.FOOD_CATEGORY_NOT_FOUND))).collect(Collectors.toList());
+                .map(category -> {
+                    return foodCategoryRepository.findById(category)
+                    .orElseThrow(() -> new FoodCategoryHandler(ErrorStatus.FOOD_CATEGORY_NOT_FOUND));
+                }).collect(Collectors.toList());
 
         List<MemberPrefer> memberPreferList = MemberPreferConverter.toMemberPreferList(foodCategoryList);
 
-        for (MemberPrefer memberPrefer : memberPreferList) {
-            memberPrefer.setMember(newMember);
-        }
+        memberPreferList.forEach(memberPrefer -> {memberPrefer.setMember(newMember);});
 
         return memberRepository.save(newMember);
     }
