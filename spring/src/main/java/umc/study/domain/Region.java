@@ -15,6 +15,7 @@ import java.util.List;
 public class Region extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "region_id")
     private Long id;
 
     @Column(nullable = false, length = 50)
@@ -22,6 +23,4 @@ public class Region extends BaseEntity {
 
     @OneToMany(mappedBy = "region", cascade = CascadeType.ALL)
     private List<Restaurant> restaurantList = new ArrayList<>();
-
-
 }
