@@ -1,5 +1,6 @@
 package umc.study.converter;
 
+import org.springframework.data.domain.Page;
 import umc.study.domain.Region;
 import umc.study.domain.Restaurant;
 import umc.study.domain.Review;
@@ -7,6 +8,8 @@ import umc.study.web.dto.RestaurantRequestDTO;
 import umc.study.web.dto.RestaurantResponseDTO;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class RestaurantConverter {
 
@@ -40,6 +43,36 @@ public class RestaurantConverter {
                 .restaurant(restaurant)
                 .score(info.getScore())
                 .content(info.getContent())
+                .build();
+    }
+
+    public static RestaurantResponseDTO.writeReviewDTO toCreateReviewResultDTO(Review review){
+        return RestaurantResponseDTO.writeReviewDTO.builder()
+                .reviewId(review.getId())
+                .createdAt(LocalDateTime.now())
+                .build();
+    }
+
+    public static RestaurantResponseDTO.ReviewPreViewListDTO reviewPreViewListDTO(Page<Review> reviewPage) {
+        List<RestaurantResponseDTO.ReviewPreViewDTO> reviewPreViewDTOList = reviewPage.getContent().stream()
+                .map(RestaurantConverter::reviewPreViewDTO).collect(Collectors.toList());
+
+        return RestaurantResponseDTO.ReviewPreViewListDTO.builder()
+                .isLast(reviewPage.isLast())
+                .isFirst(reviewPage.isFirst())
+                .totalPage(reviewPage.getTotalPages())
+                .totalElements(reviewPage.getTotalElements())
+                .listSize(reviewPreViewDTOList.size())
+                .reviewList(reviewPreViewDTOList)
+                .build();
+    }
+
+    public static RestaurantResponseDTO.ReviewPreViewDTO reviewPreViewDTO(Review review) {
+        return RestaurantResponseDTO.ReviewPreViewDTO.builder()
+                .ownerNickname(review.getMember().getName())
+                .score(review.getScore())
+                .createdAt(review.getCreatedAt().toLocalDate())
+                .body(review.getContent())
                 .build();
     }
 }
