@@ -16,7 +16,7 @@ public class RegionCommandServiceImpl implements RegionCommandService {
 
     public Region findById(Long regionId) {
         return regionRepository.findById(Math.toIntExact(regionId))
-                .orElseThrow(()->new RestaurantHandler(ErrorStatus.RESTAURANT_NOT_FOUND));
+                .orElseThrow(()->new RestaurantHandler(ErrorStatus.REGION_NOT_FOUND));
 
     }
 }

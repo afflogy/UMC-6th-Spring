@@ -18,10 +18,25 @@ public class RestaurantResponseDTO {
         @Schema(description = "가게 아이디")
         Long restaurantId;
 
-        @Schema(description = "가게 이름")
+        @Schema(description = "지역 이름")
         String regionName;
 
         @Schema(description = "가입한 시간")
+        LocalDateTime createdAt;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public class writeReviewDTO {
+        @Schema(description = "리뷰 아이디")
+        Long reviewId;
+
+        @Schema(description = "사용자 아이디")
+        Long memberId;
+
+        @Schema(description = "작성일")
         LocalDateTime createdAt;
     }
 }
