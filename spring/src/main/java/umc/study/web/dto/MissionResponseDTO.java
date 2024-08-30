@@ -21,7 +21,7 @@ public class MissionResponseDTO {
         @Schema(description = "미션 내용")
         String content;
 
-        @Schema(description = "미션 데드라인")
+        @Schema(description = "미션 종료일")
         LocalDateTime deadline;
 
         @Schema(description = "미션 생성일")

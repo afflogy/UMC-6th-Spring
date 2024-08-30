@@ -23,5 +23,9 @@ public class MemberMission {
     private Mission mission;
 
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(15) DEFAULT 'UN_PROGRESS'")
     private MemberMissionStatus status;
+
+    public void setMission(Mission mission) {
+    }
 }

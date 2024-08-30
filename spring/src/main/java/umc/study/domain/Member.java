@@ -9,6 +9,7 @@ import umc.study.domain.common.BaseEntity;
 import umc.study.domain.enums.Gender;
 import umc.study.domain.enums.MemberStatus;
 import umc.study.domain.mapping.MemberAgree;
+import umc.study.domain.mapping.MemberMission;
 import umc.study.domain.mapping.MemberPoint;
 import umc.study.domain.mapping.MemberPrefer;
 
@@ -68,4 +69,14 @@ public class Member extends BaseEntity {
 
    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
    private List<MemberPoint> memberPointList = new ArrayList<>();
+
+   @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+   private List<MemberMission> memberMissionList = new ArrayList<>();
+
+   public void addMemberMission(MemberMission memberMission) {
+      this.memberMissionList.add(memberMission);
+      if (memberMission.getMember() != this) {
+         memberMission.setMember(this);
+      }
+   }
 }
