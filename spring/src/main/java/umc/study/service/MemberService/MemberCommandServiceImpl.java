@@ -10,7 +10,7 @@ import umc.study.converter.MemberPreferConverter;
 import umc.study.domain.FoodCategory;
 import umc.study.domain.Member;
 import umc.study.domain.mapping.MemberPrefer;
-import umc.study.repository.FoodCategoryRepository;
+import umc.study.repository.CategoryRepository;
 import umc.study.repository.MemberRepository;
 import umc.study.web.dto.MemberRequestDTO;
 
@@ -19,11 +19,11 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Transactional
 public class MemberCommandServiceImpl implements MemberCommandService{
 
     private final MemberRepository memberRepository;
-    private final FoodCategoryRepository foodCategoryRepository;
+    private final CategoryRepository CategoryRepository;
 
     @Override
     @Transactional
@@ -32,8 +32,8 @@ public class MemberCommandServiceImpl implements MemberCommandService{
         Member newMember = MemberConverter.toMember(request);
         List<FoodCategory> foodCategoryList = request.getPreferCategory().stream()
                 .map(category -> {
-                    return foodCategoryRepository.findById(category)
-                    .orElseThrow(() -> new FoodCategoryHandler(ErrorStatus.FOOD_CATEGORY_NOT_FOUND));
+                    return CategoryRepository.findById(category)
+                    .orElseThrow(() -> new FoodCategoryHandler(ErrorStatus.CATEGORY_NOT_FOUND));
                 }).collect(Collectors.toList());
 
         List<MemberPrefer> memberPreferList = MemberPreferConverter.toMemberPreferList(foodCategoryList);
