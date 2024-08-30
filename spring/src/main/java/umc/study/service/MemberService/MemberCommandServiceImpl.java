@@ -1,18 +1,24 @@
 package umc.study.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import umc.study.apiPayload.code.status.ErrorStatus;
 import umc.study.apiPayload.exception.handler.FoodCategoryHandler;
+import umc.study.apiPayload.exception.handler.TempHandler;
 import umc.study.converter.MemberConverter;
 import umc.study.converter.MemberPreferConverter;
 import umc.study.domain.FoodCategory;
 import umc.study.domain.Member;
+import umc.study.domain.Review;
 import umc.study.domain.mapping.MemberPrefer;
 import umc.study.repository.CategoryRepository;
 import umc.study.repository.MemberRepository;
+import umc.study.repository.ReviewRepository;
 import umc.study.web.dto.MemberRequestDTO;
+import umc.study.web.dto.MemberResponseDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,9 +27,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Transactional
 public class MemberCommandServiceImpl implements MemberCommandService{
-
     private final MemberRepository memberRepository;
     private final CategoryRepository CategoryRepository;
+    private final ReviewRepository reviewRepository;
 
     @Override
     @Transactional
@@ -41,5 +47,13 @@ public class MemberCommandServiceImpl implements MemberCommandService{
         memberPreferList.forEach(memberPrefer -> {memberPrefer.setMember(newMember);});
 
         return memberRepository.save(newMember);
+    }
+
+    public MemberResponseDTO.ReviewPreViewListDTO getReviewList(Long memberId, Integer page) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new TempHandler(ErrorStatus.MEMBER_NOT_FOUND));
+
+        Page<Review> MemberPage = reviewRepository.findAllByMember(member, PageRequest.of(page, 10));
+        return MemberConverter.reviewPreViewListDTO(MemberPage);
     }
 }
