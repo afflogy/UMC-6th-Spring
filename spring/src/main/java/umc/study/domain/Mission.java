@@ -22,6 +22,8 @@ public class Mission extends BaseEntity {
     @Column(nullable = false, length = 50)
     private String condition;
 
+    private String content;
+
     private LocalDate deadline;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -30,5 +32,4 @@ public class Mission extends BaseEntity {
 
     @OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
     private List<MemberMission> memberMissionList = new ArrayList<>();
-
 }
