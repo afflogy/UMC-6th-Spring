@@ -12,9 +12,12 @@ import umc.study.converter.MemberConverter;
 import umc.study.converter.MemberPreferConverter;
 import umc.study.domain.FoodCategory;
 import umc.study.domain.Member;
+import umc.study.domain.MemberMission;
 import umc.study.domain.Review;
+import umc.study.domain.enums.MemberMissionStatus;
 import umc.study.domain.mapping.MemberPrefer;
 import umc.study.repository.CategoryRepository;
+import umc.study.repository.MemberMissionRepository;
 import umc.study.repository.MemberRepository;
 import umc.study.repository.ReviewRepository;
 import umc.study.web.dto.MemberRequestDTO;
@@ -30,6 +33,7 @@ public class MemberCommandServiceImpl implements MemberCommandService{
     private final MemberRepository memberRepository;
     private final CategoryRepository CategoryRepository;
     private final ReviewRepository reviewRepository;
+    private final MemberMissionRepository memberMissionRepository;
 
     @Override
     @Transactional
@@ -55,5 +59,15 @@ public class MemberCommandServiceImpl implements MemberCommandService{
 
         Page<Review> MemberPage = reviewRepository.findAllByMember(member, PageRequest.of(page, 10));
         return MemberConverter.reviewPreViewListDTO(MemberPage);
+    }
+
+    public MemberResponseDTO.MissionPreViewListDTO getMissionList(Long memberId, Integer page) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new TempHandler(ErrorStatus.MEMBER_NOT_FOUND));
+
+        Page<MemberMission> memberMissionPage = memberMissionRepository.findAllByMemberAndStatus(
+                member, MemberMissionStatus.IN_PROGRESS, PageRequest.of(page, 10));
+
+        return MemberConverter.missionPreViewListDTO(memberMissionPage);
     }
 }

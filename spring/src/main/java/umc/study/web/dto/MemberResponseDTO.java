@@ -64,4 +64,43 @@ public class MemberResponseDTO {
         @Schema(description = "리뷰 작성일")
         LocalDate createdAt;
     }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MissionPreViewListDTO {
+        @Schema(description = "미션 목록")
+        List<MemberResponseDTO.MissionPreViewDTO> missionList;
+
+        @Schema(description = "목록 크기")
+        Integer listSize;
+
+        @Schema(description = "전체 페이지")
+        Integer totalPage;
+
+        @Schema(description = "전체 데이터")
+        Long totalElements;
+
+        Boolean isFirst;
+        Boolean isLast;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MissionPreViewDTO {
+        @Schema(description = "미션 아이디")
+        Long missionId;
+
+        @Schema(description = "미션 내용")
+        String body;
+
+        @Schema(description = "미션 종료일")
+        LocalDate deadline;
+
+        @Schema(description = "미션 시작일")
+        LocalDateTime createdAt;
+    }
 }
