@@ -8,5 +8,5 @@ import umc.study.domain.MemberMission;
 import umc.study.domain.enums.MemberMissionStatus;
 
 public interface MemberMissionRepository extends JpaRepository<MemberMission, Long> {
-    Page<MemberMission> findAllByMemberAndStatus(Member member, MemberMissionStatus status, Pageable pageable);
+    Page<umc.study.domain.mapping.MemberMission> findAllByMemberAndStatus(Member member, MemberMissionStatus status, Pageable pageable);
 }

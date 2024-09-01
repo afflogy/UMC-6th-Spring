@@ -12,7 +12,7 @@ import umc.study.converter.MemberConverter;
 import umc.study.converter.MemberPreferConverter;
 import umc.study.domain.FoodCategory;
 import umc.study.domain.Member;
-import umc.study.domain.MemberMission;
+import umc.study.domain.mapping.MemberMission;
 import umc.study.domain.Review;
 import umc.study.domain.enums.MemberMissionStatus;
 import umc.study.domain.mapping.MemberPrefer;
