@@ -1,6 +1,7 @@
 package umc.study.converter;
 
 import org.springframework.data.domain.Page;
+import umc.study.domain.Mission;
 import umc.study.domain.Region;
 import umc.study.domain.Restaurant;
 import umc.study.domain.Review;
@@ -46,13 +47,6 @@ public class RestaurantConverter {
                 .build();
     }
 
-    public static RestaurantResponseDTO.writeReviewDTO toCreateReviewResultDTO(Review review){
-        return RestaurantResponseDTO.writeReviewDTO.builder()
-                .reviewId(review.getId())
-                .createdAt(LocalDateTime.now())
-                .build();
-    }
-
     public static RestaurantResponseDTO.ReviewPreViewListDTO reviewPreViewListDTO(Page<Review> reviewPage) {
         List<RestaurantResponseDTO.ReviewPreViewDTO> reviewPreViewDTOList = reviewPage.getContent().stream()
                 .map(RestaurantConverter::reviewPreViewDTO).collect(Collectors.toList());
@@ -73,6 +67,29 @@ public class RestaurantConverter {
                 .score(review.getScore())
                 .createdAt(review.getCreatedAt().toLocalDate())
                 .body(review.getContent())
+                .build();
+    }
+
+    public static RestaurantResponseDTO.MissionPreViewListDTO missionPreViewListDTO(Page<Mission> missionPage) {
+        List<RestaurantResponseDTO.MissionPreViewDTO> missionPreViewDTOList = missionPage.getContent().stream()
+                .map(RestaurantConverter::missionPreViewDTO).collect(Collectors.toList());
+
+        return RestaurantResponseDTO.MissionPreViewListDTO.builder()
+                .isLast(missionPage.isLast())
+                .isFirst(missionPage.isFirst())
+                .totalPage(missionPage.getTotalPages())
+                .totalElements(missionPage.getTotalElements())
+                .listSize(missionPreViewDTOList.size())
+                .missionList(missionPreViewDTOList)
+                .build();
+    }
+
+    public static RestaurantResponseDTO.MissionPreViewDTO missionPreViewDTO(Mission mission) {
+        return RestaurantResponseDTO.MissionPreViewDTO.builder()
+                .missionId(mission.getId())
+                .body(mission.getContent())
+                .createdAt(mission.getCreatedAt())
+                .deadline(mission.getDeadline())
                 .build();
     }
 }
