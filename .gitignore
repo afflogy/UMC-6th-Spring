@@ -20,7 +20,6 @@ bin/
 ### IntelliJ IDEA ###
 .idea
 *.iws
-*.yml
 *.ipr
 out/
 !**/src/main/**/out/
