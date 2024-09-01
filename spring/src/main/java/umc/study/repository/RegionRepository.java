@@ -4,5 +4,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import umc.study.domain.Region;
 
 public interface RegionRepository extends JpaRepository<Region, Integer> {
-    Region findByName(String name);
 }

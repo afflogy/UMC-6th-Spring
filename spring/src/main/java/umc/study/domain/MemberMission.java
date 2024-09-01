@@ -28,4 +28,8 @@ public class MemberMission {
 
     public void setMission(Mission mission) {
     }
+
+    public void completeMission() {
+        this.status = MemberMissionStatus.COMPLETED;
+    }
 }
