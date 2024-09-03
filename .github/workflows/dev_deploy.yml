@@ -1,3 +1,5 @@
+name : UMC Dev CI/CD
+
 on:
   pull_request:
     branches:
@@ -47,7 +49,7 @@ jobs:
           mkdir -p deploy
           cp build/libs/*.jar deploy/application.jar
           cp Procfile deploy/Procfile
-          cp -r .ebextensions-dev deploy/.ebextensions
+          cp -r .ebextensions_dev deploy/.ebextensions
           cp -r .platform deploy/.platform
           cd deploy && zip -r deploy.zip .
       - name: Beanstalk Deploy
@@ -58,6 +60,6 @@ jobs:
           application_name: UMC-6th-app
           environment_name: UMC-6th-env
           version_label: github-action-${{ steps.current-time.outputs.formattedTime }}
-          region: ap-northeast-1
+          region: ap-northeast-2
           deployment_package: deploy/deploy.zip
           wait_for_deployment: false
