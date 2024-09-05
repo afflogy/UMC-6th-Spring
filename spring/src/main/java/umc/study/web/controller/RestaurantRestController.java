@@ -40,7 +40,7 @@ public class RestaurantRestController {
         return ApiResponse.onSuccess(RestaurantConverter.toAddRestaurantResultDTO(restaurant));
     }
 
-    @PostMapping("/{restaurantId}/reviews")
+    @PostMapping(value = "/{restaurantId}/reviews", consumes = "multipart/form-data")
     public ApiResponse<RestaurantResponseDTO.writeReviewDTO> writeReview(
             @RequestBody @Valid RestaurantRequestDTO.ReviewDTO info,
             @ExistRestaurant @PathVariable(name = "restaurantId") Long restaurantId,

@@ -29,4 +29,11 @@ public class Review extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
+
+    public void setMember(Member member) {
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+
+    }
 }

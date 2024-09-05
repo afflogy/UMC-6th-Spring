@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
+import org.springframework.web.multipart.MultipartFile;
 
 public class RestaurantRequestDTO {
 
@@ -46,5 +47,7 @@ public class RestaurantRequestDTO {
         @Size(min = 30, max = 100)
         @Schema(description = "리뷰 내용")
         String content;
+
+        MultipartFile reviewPicture;
     }
 }
